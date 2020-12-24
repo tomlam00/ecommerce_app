@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'data.dart';
-import 'function.dart';
+import 'package:ecommerce_app/data.dart';
+import 'package:ecommerce_app/screens/commonWidget.dart';
+import 'package:provider/provider.dart';
+import 'package:ecommerce_app/models/model.dart';
+import 'package:ecommerce_app/services/database.dart';
+import 'itemListView.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,13 +16,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          topBar('Home'),
-          HomeCarousel(),
-          createListView(models),
-        ],
+    return StreamProvider<List<ModelData>>.value(
+      value: DatabaseService().models,
+      child: Scaffold(
+        body: Column(
+          children: [
+            topBar('Home'),
+            HomeCarousel(),
+            ItemListView(),
+          ],
+        ),
       ),
     );
   }

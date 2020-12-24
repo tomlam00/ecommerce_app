@@ -1,20 +1,28 @@
+import 'package:ecommerce_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'homePage.dart';
-import 'categoriesPage.dart';
-import 'cartPage.dart';
-import 'likedPage.dart';
+import 'package:ecommerce_app/screens/homePage.dart';
+import 'package:ecommerce_app/screens/categoriesPage.dart';
+import 'package:ecommerce_app/screens/cartPage.dart';
+import 'package:ecommerce_app/screens/likedPage.dart';
+import 'package:ecommerce_app/screens/wrapper.dart';
+import 'package:provider/provider.dart';
+import 'package:ecommerce_app/models/user.dart';
+import 'package:ecommerce_app/screens/personalPage.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.white,
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.white,
+        ),
+        home: Wrapper(),
       ),
-      home: MainPage(),
     );
   }
 }
@@ -29,7 +37,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 5,
         child: Scaffold(
           body: TabBarView(
             children: <Widget>[
@@ -37,6 +45,7 @@ class _MainPageState extends State<MainPage> {
               CategoriesPage(),
               CartPage(),
               LikedPage(),
+              PersonalPage()
             ],
           ),
           bottomNavigationBar: Container(
@@ -63,23 +72,14 @@ class _MainPageState extends State<MainPage> {
                 Tab(
                     icon: Icon(Icons.favorite, color: Color(0xFF00A9F8)),
                     text: 'Liked'),
+                Tab(
+                    icon: Icon(Icons.person, color: Color(0xFF00A9F8)),
+                    text: 'Personal')
               ],
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-class Categories extends StatefulWidget {
-  @override
-  _CategoriesState createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }

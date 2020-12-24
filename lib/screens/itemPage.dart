@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'data.dart';
+import 'package:ecommerce_app/models/model.dart';
 
 class ItemPage extends StatefulWidget {
-  final Model model;
+  final ModelData model;
 
   ItemPage({this.model});
 
@@ -12,9 +12,12 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
+  final liked = [];
+  final cart = [];
+
   @override
   Widget build(BuildContext context) {
-    final _alreadySaved = saved.contains(widget.model);
+    final _alreadyLiked = liked.contains(widget.model);
     final _alreadyInCart = cart.contains(widget.model);
 
     return Scaffold(
@@ -59,7 +62,9 @@ class _ItemPageState extends State<ItemPage> {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.add_shopping_cart),
+                          icon: Icon(_alreadyInCart
+                              ? Icons.remove_shopping_cart
+                              : Icons.add_shopping_cart),
                           iconSize: 30.0,
                           color: Colors.black,
                           onPressed: () {
@@ -74,19 +79,19 @@ class _ItemPageState extends State<ItemPage> {
                         ),
                         IconButton(
                           icon: Icon(
-                            _alreadySaved
+                            _alreadyLiked
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            color: _alreadySaved ? Colors.red : null,
+                            color: _alreadyLiked ? Colors.red : null,
                           ),
                           iconSize: 30.0,
                           color: Colors.black,
                           onPressed: () {
                             setState(() {
-                              if (_alreadySaved) {
-                                saved.remove(widget.model);
+                              if (_alreadyLiked) {
+                                liked.remove(widget.model);
                               } else {
-                                saved.add(widget.model);
+                                liked.add(widget.model);
                               }
                             });
                           },
@@ -122,7 +127,7 @@ class _ItemPageState extends State<ItemPage> {
                   child: Material(
                     color: Colors.transparent,
                     child: Text(
-                      '\$${widget.model.price.toString()}',
+                      widget.model.price.toString(),
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w400,

@@ -35,32 +35,8 @@ final List<String> likedList = [
   'E'
 ];
 
-class Model {
-  String imageUrl;
-  String name;
-  int price;
-
-  Model({
-    this.imageUrl,
-    this.name,
-    this.price,
-  });
-}
-
-final List<Model> models = [
-  Model(imageUrl: 'assets/images/modelA.jpg', name: 'Model A', price: 1000),
-  Model(imageUrl: 'assets/images/modelB.jpg', name: 'Model B', price: 600),
-  Model(imageUrl: 'assets/images/modelC.jpg', name: 'Model C', price: 240),
-  Model(imageUrl: 'assets/images/modelD.jpg', name: 'Model D', price: 2340),
-  Model(imageUrl: 'assets/images/modelE.jpg', name: 'Model E', price: 2561),
-];
-
 final List<String> carouselItems = [
   'assets/images/CarouselA.jpg',
   'assets/images/CarouselB.jpg',
   'assets/images/CarouselC.jpg'
 ];
-
-final saved = List<Model>();
-
-final cart = List<Model>();
